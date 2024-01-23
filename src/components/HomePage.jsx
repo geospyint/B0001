@@ -1,29 +1,34 @@
 // src/components/HomePage.jsx
 import React from "react";
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import { Link } from "react-router-dom";
-import TwoDMapComponent from "./GeoSys2D/TwoDMapComponent";
-import ThreeDMapComponent from "./GeoSys3D/ThreeDMapComponent";
+import { Route, Routes } from "react-router-dom"; // Removed BrowserRouter as Router
+import Header from "./Header";
+import About from "./Tabs/About";
+import Services from "./Tabs/Services";
+import Process from "./Tabs/Process";
+import Portfolio from "./Tabs/Portfolio";
+import Pricing from "./Tabs/Pricing";
+import Contact from "./Tabs/Contact";
+import Geoportal from "./Tabs/Geoportal";
 
 const HomePage = () => {
   return (
-    <div className="homepage-container">
-      <h1>Welcome to GeoSpy GIS Portal</h1>
-      {/* Display 2D map component */}
-      <TwoDMapComponent />
-      <Router>
+    <>
+      <div>
+        <Header />
         <Routes>
-          <Route path="/3d-map" element={<ThreeDMapComponent />} />
-          <Link to="/3d-map">
-            <button className="explore-button">Explore in 3D</button>
-          </Link>
-          {/* <Route path="/" element={<HomePage />} /> */}
+          <Route path="/" element={<About />} />
+          {/* Set the default route to About using the index route */}
+          <Route index element={<About />} />
+          <Route path="/services" element={<Services />} />
+          <Route path="/process" element={<Process />} />
+          {/* Update the parent route path to have a trailing "*" */}
+          <Route path="/portfolio/*" element={<Portfolio />} />{" "}
+          {/* Added trailing "*" to the route path */}
+          <Route path="/pricing" element={<Pricing />} />
+          <Route path="/contact" element={<Contact />} />
         </Routes>
-      </Router>
-      <Link to="/3d-map">
-        <button className="explore-button">Explore in 3D</button>
-      </Link>
-    </div>
+      </div>
+    </>
   );
 };
 
